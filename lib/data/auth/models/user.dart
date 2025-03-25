@@ -20,7 +20,19 @@ class UserModel {
     required this.gender
   });
 
-  Map<String, dynamic> toMap() {
+
+factory UserModel.fromMap(Map<String, dynamic> map) {
+  return UserModel(
+    userId: map['userId'] as String? ?? '',
+    firstName: map['first_name'] as String? ?? '',
+    lastName: map['last_name'] as String? ?? '',
+    email: map['email'] as String? ?? '',
+    image: map['image'] as String? ?? '',
+    gender: (map['gender'] as int?) ?? 0,
+  );
+}
+
+    Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'userId': userId,
       'first_name': firstName,
@@ -31,17 +43,6 @@ class UserModel {
     };
   }
 
-  factory UserModel.fromMap(Map<String, dynamic> map) {
-    return UserModel(
-      userId: map['userId'] as String ?  ??'',
-      firstName: map['first_name'] as String? ??'',
-      lastName: map['last_name'] as String ? ??'',
-      email: map['email'] as String ? ??'',
-      image: map['image'] ?? '',
-      gender: map['gender'] as int ? ??0,
-    );
-  }
-  
 
   String toJson() => json.encode(toMap());
 

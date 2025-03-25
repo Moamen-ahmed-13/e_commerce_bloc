@@ -3,7 +3,6 @@ import 'package:e_commerce_bloc/data/auth/models/sign_in_req.dart';
 import 'package:e_commerce_bloc/data/auth/models/user.dart';
 import 'package:e_commerce_bloc/data/auth/models/user_creation_req.dart';
 import 'package:e_commerce_bloc/data/auth/source/auth_firebase_service.dart';
-import 'package:e_commerce_bloc/domain/auth/entity/user_entity.dart';
 import 'package:e_commerce_bloc/domain/auth/repository/auth_repository.dart';
 
 import '../../../service_locator.dart';
@@ -35,7 +34,7 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<Either<String, UserEntity> > getUser() async {
+  Future<Either> getUser() async {
     var user = await sl<AuthFirebaseService>().getUser();
     return user.fold(
       (error) => Left(error),
