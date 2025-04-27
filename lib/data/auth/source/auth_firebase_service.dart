@@ -11,7 +11,6 @@ abstract class AuthFirebaseService {
   Future<bool> isLoggedIn();
   Future<Either> getAges();
   Future<Either> getUser();
-
 }
 
 class AuthFirebaseServiceImpl extends AuthFirebaseService {
@@ -99,38 +98,27 @@ class AuthFirebaseServiceImpl extends AuthFirebaseService {
       return false;
     }
   }
-  
+
   @override
-//   Future<Either> getUser() async{
-//    try {
-//   var currentUser = FirebaseAuth.instance.currentUser;
-//   var userData = FirebaseFirestore.instance.collection('Users').doc(currentUser?.uid).get();
-//   return Right(userData);
-// }   catch (e) {
-//     return Left('Please try again');
-// }
-//   }
-@override
-Future<Either> getUser() async {
-  try {
-    var currentUser = FirebaseAuth.instance.currentUser;
-    if (currentUser == null) {
-      return Left('User not logged in');
+  Future<Either> getUser() async {
+    try {
+      var currentUser = FirebaseAuth.instance.currentUser;
+      if (currentUser == null) {
+        return Left('User not logged in');
+      }
+
+      var userDoc = await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(currentUser.uid)
+          .get();
+
+      if (!userDoc.exists) {
+        return Left('User not found');
+      }
+
+      return Right(userDoc.data());
+    } catch (e) {
+      return Left('Failed to fetch user data');
     }
-
-    var userDoc = await FirebaseFirestore.instance
-        .collection('Users')
-        .doc(currentUser.uid)
-        .get();
-
-    if (!userDoc.exists) {
-      return Left('User not found');
-    }
-
-    return Right(userDoc.data());
-  } catch (e) {
-    return Left('Failed to fetch user data');
   }
-}
-
 }
