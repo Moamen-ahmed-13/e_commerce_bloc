@@ -63,7 +63,7 @@ class ProductCard extends StatelessWidget {
                               ? "${productEntity.price}\$"
                               : "${productEntity.discountedPrice}\$",
                           style: const TextStyle(
-                              fontSize: 12, fontWeight: FontWeight.w300),
+                              fontSize: 12, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(width: 10),
                         Text(

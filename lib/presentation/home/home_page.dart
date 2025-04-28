@@ -12,17 +12,19 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 60),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Header(),
-            SizedBox(height: 20),
-            SearchField(),
-            SizedBox(height: 20),
-            CategorySection(),
-            SizedBox(height: 20),
-            TopSelling(),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Header(),
+              SizedBox(height: 20),
+              SearchField(),
+              SizedBox(height: 20),
+              CategorySection(),
+              SizedBox(height: 20),
+              TopSelling(),
+            ],
+          ),
         ),
       ),
     );
