@@ -10,9 +10,11 @@ import 'package:e_commerce_bloc/domain/auth/usecases/get_user.dart';
 import 'package:e_commerce_bloc/domain/auth/usecases/is_logged_in.dart';
 import 'package:e_commerce_bloc/domain/auth/usecases/reset_password_usecase.dart';
 import 'package:e_commerce_bloc/domain/auth/usecases/signin_usecase.dart';
+import 'package:e_commerce_bloc/domain/auth/usecases/signout_usecase.dart';
 import 'package:e_commerce_bloc/domain/auth/usecases/signup_usecase.dart';
 import 'package:e_commerce_bloc/domain/category/repository/category_repo.dart';
 import 'package:e_commerce_bloc/domain/category/usecases/get_categories.dart';
+import 'package:e_commerce_bloc/domain/category/usecases/get_products_by_title.dart';
 import 'package:e_commerce_bloc/domain/products/repository/product_repo.dart';
 import 'package:e_commerce_bloc/domain/products/usecases/get_product.dart';
 import 'package:get_it/get_it.dart';
@@ -43,6 +45,7 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<ProductRepository>(
     ProductRepositoryImpl(),
   );
+  
 
   // UseCases
 
@@ -51,6 +54,9 @@ Future<void> initializeDependencies() async {
   );
   sl.registerSingleton<SignupUsecase>(
     SignupUsecase(),
+  );
+  sl.registerSingleton<SignOutUsecase>(
+    SignOutUsecase(),
   );
   sl.registerSingleton<GetAgesUseCase>(
     GetAgesUseCase(),
@@ -69,5 +75,8 @@ Future<void> initializeDependencies() async {
   );
   sl.registerSingleton<GetProductUsecase>(
     GetProductUsecase(),
+  );
+  sl.registerSingleton<GetProductsByTitleUsecase>(
+    GetProductsByTitleUsecase(),
   );
 }

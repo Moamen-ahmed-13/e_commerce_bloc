@@ -41,4 +41,9 @@ class AuthRepositoryImpl extends AuthRepository {
       (data) => Right(UserModel.fromMap(data).toEntity()),
     );
   }
+  
+  @override
+  Future<Either> signout() {
+    return sl<AuthFirebaseService>().signout();
+  }
 }

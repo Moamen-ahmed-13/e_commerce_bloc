@@ -3,6 +3,7 @@ import 'package:e_commerce_bloc/domain/category/entity/category_entity.dart';
 import 'package:e_commerce_bloc/presentation/categories/categories_page.dart';
 import 'package:e_commerce_bloc/presentation/categories/categories_bloc/categories_display_cubit.dart';
 import 'package:e_commerce_bloc/presentation/categories/categories_bloc/categories_display_state.dart';
+import 'package:e_commerce_bloc/presentation/products/products_gird_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,7 +18,7 @@ class CategorySection extends StatelessWidget {
         builder: (context, state) {
           if (state is CategoriesDisplayError) {
             print(state.message);
-          } 
+          }
           if (state is CategoriesDisplayLoading) {
             return const Center(child: CircularProgressIndicator());
           }
@@ -63,23 +64,29 @@ class CategorySection extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             physics: BouncingScrollPhysics(),
             itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  Container(
-                    height: 60,
-                    width: 60,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
+              return GestureDetector(
+                onTap: () {
+                  AppNavigator.push(context, ProductsGirdPage());
+                },
+                child: Column(
+                  children: [
+                    Container(
+                      height: 60,
+                      width: 60,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                      ),
+                      child: Image.asset(
+                          "assets/images/${categories[index].image}"),
                     ),
-                    child:
-                        Image.asset("assets/images/${categories[index].image}"),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    categories[index].name,
-                    style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
-                  ),
-                ],
+                    SizedBox(height: 10),
+                    Text(
+                      categories[index].name,
+                      style:
+                          TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
+                    ),
+                  ],
+                ),
               );
             },
             separatorBuilder: (context, index) => const SizedBox(

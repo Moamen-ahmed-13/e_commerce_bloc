@@ -1,7 +1,10 @@
+import 'package:e_commerce_bloc/core/helper/navigator/app_navigator.dart';
 import 'package:e_commerce_bloc/core/theme/app_colors.dart';
+import 'package:e_commerce_bloc/core/widgets/buttons/back_button.dart';
 import 'package:e_commerce_bloc/domain/category/entity/category_entity.dart';
 import 'package:e_commerce_bloc/presentation/categories/categories_bloc/categories_display_cubit.dart';
 import 'package:e_commerce_bloc/presentation/categories/categories_bloc/categories_display_state.dart';
+import 'package:e_commerce_bloc/presentation/products/products_gird_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,19 +27,7 @@ class CategoriesPage extends StatelessWidget {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    IconButton(
-                      color: Colors.white,
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll(
-                              AppColors.secondBackground)),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(
-                        Icons.arrow_back_ios_new,
-                        size: 18,
-                      ),
-                    ),
+                    AppBackButton(),
                     SizedBox(
                       height: 50,
                     ),
@@ -65,17 +56,22 @@ class CategoriesPage extends StatelessWidget {
             scrollDirection: Axis.vertical,
             physics: BouncingScrollPhysics(),
             itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(categories[index].name),
-                leading: Container(
-                  height: 40,
-                  width: 40,
-                  child:
-                      Image.asset("assets/images/${categories[index].image}"),
+              return GestureDetector(
+                onTap: () {
+                  AppNavigator.push(context, const ProductsGirdPage());
+                },
+                child: ListTile(
+                  title: Text(categories[index].name),
+                  leading: Container(
+                    height: 40,
+                    width: 40,
+                    child:
+                        Image.asset("assets/images/${categories[index].image}"),
+                  ),
+                  tileColor: AppColors.secondBackground,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8)),
                 ),
-                tileColor: AppColors.secondBackground,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8)),
               );
             },
             separatorBuilder: (context, index) => const SizedBox(
@@ -84,3 +80,4 @@ class CategoriesPage extends StatelessWidget {
             itemCount: categories.length));
   }
 }
+

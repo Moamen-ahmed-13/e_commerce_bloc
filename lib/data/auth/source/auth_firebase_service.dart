@@ -7,10 +7,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 abstract class AuthFirebaseService {
   Future<Either> signup(UserCreationReq user);
   Future<Either> signin(SignInReq user);
+  Future<Either> signout();
   Future<Either> resetPassword(String email);
   Future<bool> isLoggedIn();
   Future<Either> getAges();
   Future<Either> getUser();
+
 }
 
 class AuthFirebaseServiceImpl extends AuthFirebaseService {
@@ -119,6 +121,17 @@ class AuthFirebaseServiceImpl extends AuthFirebaseService {
       return Right(userDoc.data());
     } catch (e) {
       return Left('Failed to fetch user data');
+    }
+  }
+  
+  @override
+  Future<Either> signout() async{
+    try {
+      await FirebaseAuth.instance.signOut();
+      return Right('Sign out was successfull');
+      
+    } catch (e) {
+      return Left('Please try again');
     }
   }
 }

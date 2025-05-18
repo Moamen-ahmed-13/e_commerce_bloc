@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget {
             children: [
               Header(),
               SizedBox(height: 20),
-              SearchField(),
+              Hero(tag: 'search', child: SearchField(isSearchPage: false,)),
               SizedBox(height: 20),
               CategorySection(),
               SizedBox(height: 20),

@@ -1,3 +1,4 @@
+import 'package:e_commerce_bloc/core/widgets/buttons/back_button.dart';
 import 'package:flutter/material.dart';
 
 import '../theme/app_colors.dart';
@@ -30,24 +31,7 @@ class BasicAppbar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         action ?? Container()
       ],
-      leading: hideBack ? null : IconButton(
-        onPressed: (){
-          Navigator.pop(context);
-        },
-        icon: Container(
-          height: 50,
-          width: 50,
-          decoration: const BoxDecoration(
-            color: AppColors.secondBackground,
-            shape: BoxShape.circle
-          ),
-          child: const Icon(
-            Icons.arrow_back_ios_new,
-            size: 15,
-            color:  Colors.white
-          ),
-        ),
-      ),
+      leading: hideBack ? null : AppBackButton(),
     );
   }
   

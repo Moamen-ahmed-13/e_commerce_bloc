@@ -1,8 +1,10 @@
 import 'package:e_commerce_bloc/common/bloc/product/product_cubit.dart';
 import 'package:e_commerce_bloc/common/bloc/product/product_state.dart';
 import 'package:e_commerce_bloc/core/widgets/app_bar.dart';
+import 'package:e_commerce_bloc/domain/products/usecases/get_product.dart';
 // import 'package:e_commerce_bloc/domain/products/entity/product_entity.dart';
 import 'package:e_commerce_bloc/presentation/home/widgets/product_card.dart';
+import 'package:e_commerce_bloc/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,7 +19,7 @@ class ProductsGirdPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ProductCubit()..fetchProducts(),
+      create: (context) => ProductCubit( sl<GetProductUsecase>())..fetchProducts(),
       child: Scaffold(
           appBar: BasicAppbar(
             title: const Text('Products'),
