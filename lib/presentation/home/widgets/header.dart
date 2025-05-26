@@ -1,6 +1,7 @@
 import 'package:e_commerce_bloc/core/helper/navigator/app_navigator.dart';
 import 'package:e_commerce_bloc/core/theme/app_colors.dart';
 import 'package:e_commerce_bloc/domain/auth/entity/user_entity.dart';
+import 'package:e_commerce_bloc/presentation/cart/page/cart_page.dart';
 import 'package:e_commerce_bloc/presentation/home/user_bloc/user_info_cubit.dart';
 import 'package:e_commerce_bloc/presentation/home/user_bloc/user_info_state.dart';
 import 'package:e_commerce_bloc/presentation/home/widgets/profile_page.dart';
@@ -26,7 +27,7 @@ class Header extends StatelessWidget {
               children: [
                 _profileImage(state.userEntity, context),
                 _gender(state.userEntity),
-                _cart(),
+                _cart(context),
               ],
             );
           }
@@ -37,9 +38,11 @@ class Header extends StatelessWidget {
   }
 }
 
-Widget _cart() {
+Widget _cart(BuildContext context) {
   return GestureDetector(
-    onTap: () {},
+    onTap: () {
+      AppNavigator.push(context, const CartPage());
+    },
     child: Container(
       padding: EdgeInsets.all(10),
       width: 40,
