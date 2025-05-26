@@ -3,7 +3,6 @@ import 'package:e_commerce_bloc/common/bloc/product/product_state.dart';
 import 'package:e_commerce_bloc/core/assets/app_vectors.dart';
 import 'package:e_commerce_bloc/core/helper/navigator/app_navigator.dart';
 import 'package:e_commerce_bloc/core/widgets/app_bar.dart';
-import 'package:e_commerce_bloc/core/widgets/buttons/back_button.dart';
 import 'package:e_commerce_bloc/core/widgets/buttons/basic_app_button.dart';
 import 'package:e_commerce_bloc/domain/category/usecases/get_products_by_title.dart';
 import 'package:e_commerce_bloc/domain/products/entity/product_entity.dart';
@@ -16,7 +15,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SearchPage extends StatelessWidget {
-  SearchPage({super.key});
+  const SearchPage({super.key});
 
   @override
   Widget build(BuildContext context) {

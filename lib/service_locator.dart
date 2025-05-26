@@ -2,6 +2,8 @@ import 'package:e_commerce_bloc/data/auth/repository/auth_repository_impl.dart';
 import 'package:e_commerce_bloc/data/auth/source/auth_firebase_service.dart';
 import 'package:e_commerce_bloc/data/category/repository/category_repo_impl.dart';
 import 'package:e_commerce_bloc/data/category/source/category_firebase_service.dart';
+import 'package:e_commerce_bloc/data/order/repository/order_repo_impl.dart';
+import 'package:e_commerce_bloc/data/order/source/order_firebase_services.dart';
 import 'package:e_commerce_bloc/data/products/repository/product_repo_impl.dart';
 import 'package:e_commerce_bloc/data/products/source/product_firebase_service.dart';
 import 'package:e_commerce_bloc/domain/auth/repository/auth_repository.dart';
@@ -15,6 +17,8 @@ import 'package:e_commerce_bloc/domain/auth/usecases/signup_usecase.dart';
 import 'package:e_commerce_bloc/domain/category/repository/category_repo.dart';
 import 'package:e_commerce_bloc/domain/category/usecases/get_categories.dart';
 import 'package:e_commerce_bloc/domain/category/usecases/get_products_by_title.dart';
+import 'package:e_commerce_bloc/domain/order/repository/order_repo.dart';
+import 'package:e_commerce_bloc/domain/order/usecases/add_to_cart.dart';
 import 'package:e_commerce_bloc/domain/products/repository/product_repo.dart';
 import 'package:e_commerce_bloc/domain/products/usecases/get_product.dart';
 import 'package:get_it/get_it.dart';
@@ -33,6 +37,9 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<ProductFirebaseService>(
     ProductFirebaseServiceImpl(),
   );
+  sl.registerSingleton<OrderFirebaseServices>(
+    OrderFirebaseServicesImpl(),
+  );
 
   // Repositories
 
@@ -45,7 +52,9 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<ProductRepository>(
     ProductRepositoryImpl(),
   );
-  
+  sl.registerSingleton<OrderRepository>(
+    OrderRepositoryImpl(),
+  );
 
   // UseCases
 
@@ -78,5 +87,8 @@ Future<void> initializeDependencies() async {
   );
   sl.registerSingleton<GetProductsByTitleUsecase>(
     GetProductsByTitleUsecase(),
+  );
+  sl.registerSingleton<AddToCartUsecase>(
+    AddToCartUsecase(),
   );
 }
