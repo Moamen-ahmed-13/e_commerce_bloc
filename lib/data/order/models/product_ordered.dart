@@ -31,7 +31,7 @@ class ProductOrderedModel {
       productQuantity: (map['productQuantity'] is int)
           ? map['productQuantity']
           : int.tryParse(map['productQuantity'].toString()) ?? 0,
-      productColor: map['productColor']?.toString() ?? '',
+      productColor: map['productColor'] as String,
       productSize: map['productSize']?.toString() ?? '',
       productPrice: (map['productPrice'] is double)
           ? map['productPrice']

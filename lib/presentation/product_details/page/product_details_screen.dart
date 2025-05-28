@@ -337,6 +337,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     super.initState();
     product = widget.productEntity;
     selectedSize = product.sizes.first;
+    selectedColor = product.colors.first.title;
     selectedColor = product.colors.first.hexCode;
   }
 

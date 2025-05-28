@@ -20,6 +20,7 @@ import 'package:e_commerce_bloc/domain/category/usecases/get_products_by_title.d
 import 'package:e_commerce_bloc/domain/order/repository/order_repo.dart';
 import 'package:e_commerce_bloc/domain/order/usecases/add_to_cart.dart';
 import 'package:e_commerce_bloc/domain/order/usecases/product_ordered.dart';
+import 'package:e_commerce_bloc/domain/order/usecases/remove_cart_product.dart';
 import 'package:e_commerce_bloc/domain/products/repository/product_repo.dart';
 import 'package:e_commerce_bloc/domain/products/usecases/get_product.dart';
 import 'package:get_it/get_it.dart';
@@ -95,5 +96,8 @@ Future<void> initializeDependencies() async {
   );
   sl.registerSingleton<ProductOrderedUsecase>(
     ProductOrderedUsecase(),
+  );
+  sl.registerSingleton<RemoveCartProductUsecase>(
+    RemoveCartProductUsecase(),
   );
 }

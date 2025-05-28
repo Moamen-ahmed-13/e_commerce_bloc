@@ -6,6 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 abstract class OrderFirebaseServices {
   Future<Either> addToCart(AddToCartReq addToCartReq);
   Future<Either> getCartProducts();
+  Future<Either> removeCartProducts(String id);
+  
 }
 
 class OrderFirebaseServicesImpl implements OrderFirebaseServices {
@@ -39,6 +41,24 @@ class OrderFirebaseServicesImpl implements OrderFirebaseServices {
         products.add(data);
       }
       return Right(products);
+    } catch (e) {
+      return const Left(
+        'Please try again'
+      );
+
+    }
+  }
+  
+  @override
+  Future<Either> removeCartProducts(String id) async{
+    try {
+      var user = FirebaseAuth.instance.currentUser;
+       await FirebaseFirestore.instance.collection(
+        'Users'
+      ).doc(user!.uid).collection('Cart').doc(id).delete();
+      
+
+      return Right('Product removed from cart');
     } catch (e) {
       return const Left(
         'Please try again'
