@@ -6,6 +6,7 @@ import 'package:e_commerce_bloc/domain/order/entity/product_ordered.dart';
 import 'package:e_commerce_bloc/presentation/checkOut/page/checkout.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class Checkout extends StatelessWidget {
   final List<ProductOrderedEntity> products;
   Checkout({required this.products, super.key, this.onPress, this.content});

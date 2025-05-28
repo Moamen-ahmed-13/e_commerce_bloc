@@ -23,7 +23,10 @@ import 'package:e_commerce_bloc/domain/order/usecases/order_registration.dart';
 import 'package:e_commerce_bloc/domain/order/usecases/product_ordered.dart';
 import 'package:e_commerce_bloc/domain/order/usecases/remove_cart_product.dart';
 import 'package:e_commerce_bloc/domain/products/repository/product_repo.dart';
+import 'package:e_commerce_bloc/domain/products/usecases/favourite_usecase.dart';
+import 'package:e_commerce_bloc/domain/products/usecases/get_fav_products.dart';
 import 'package:e_commerce_bloc/domain/products/usecases/get_product.dart';
+import 'package:e_commerce_bloc/domain/products/usecases/is_favourite.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
@@ -102,5 +105,14 @@ Future<void> initializeDependencies() async {
   );
   sl.registerSingleton<OrderRegistrationUsecase>(
     OrderRegistrationUsecase(),
+  );
+  sl.registerSingleton<AddToFavouriteUsecase>(
+    AddToFavouriteUsecase(),
+  );
+  sl.registerSingleton<IsFavouriteUsecase>(
+    IsFavouriteUsecase(),
+  );
+  sl.registerSingleton<GetFavProductsUsecase>(
+    GetFavProductsUsecase(),
   );
 }

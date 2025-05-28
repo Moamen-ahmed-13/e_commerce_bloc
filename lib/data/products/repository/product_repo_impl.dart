@@ -22,4 +22,30 @@ class ProductRepositoryImpl extends ProductRepository {
       (data) => Right(data.map((e) => e.toEntity()).toList()),
     );
   }
+  
+  @override
+  Future<Either> addOrRemoveFromFavorite(ProductEntity product)async {
+       var result = await sl<ProductFirebaseService>().addOrRemoveFromFavorite(product);
+    return result.fold(
+      (error) => Left(error),
+      (data) => Right(data),
+    );
+
+  }
+  
+  @override
+  Future<bool> isFavorite(String productId) async{
+     return await sl<ProductFirebaseService>().isFavorite(productId);
+     
+  }
+  
+  @override
+  Future<Either> getFavoriteProducts() async{
+       var result = await sl<ProductFirebaseService>().getFavoriteProducts();
+    return result.fold(
+      (error) => Left(error),
+      (data) => Right(data.map((e) => e.toEntity()).toList()),
+    );
+
+  }
 }

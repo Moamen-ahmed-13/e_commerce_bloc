@@ -7,6 +7,7 @@ class ProductEntity {
   final Timestamp createdDate;
   final String price;
   final String discountedPrice;
+  
   final int gender;
   final List<String> sizes;
   final String title;

@@ -6,7 +6,6 @@ import 'package:e_commerce_bloc/core/widgets/buttons/back_button.dart';
 import 'package:e_commerce_bloc/core/widgets/buttons/basic_app_button.dart';
 import 'package:e_commerce_bloc/domain/auth/usecases/signout_usecase.dart';
 import 'package:e_commerce_bloc/presentation/auth/pages/signin.dart';
-import 'package:e_commerce_bloc/presentation/splash/page/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

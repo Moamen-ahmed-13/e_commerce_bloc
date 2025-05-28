@@ -114,4 +114,7 @@ factory ProductModel.fromMap(Map<String, dynamic> map) {
       image: entity.image,
     );
   }
+  
 }
+
+ 

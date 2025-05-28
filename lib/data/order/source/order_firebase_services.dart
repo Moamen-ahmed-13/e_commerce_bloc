@@ -9,6 +9,7 @@ abstract class OrderFirebaseServices {
   Future<Either> getCartProducts();
   Future<Either> removeCartProducts(String id);
   Future<Either> orderRegistration(OrderRegistrationReq orderRegistrationReq);
+  
 }
 
 class OrderFirebaseServicesImpl implements OrderFirebaseServices {
@@ -83,7 +84,7 @@ class OrderFirebaseServicesImpl implements OrderFirebaseServices {
             .collection('Cart')
             .doc(item.id)
             .delete(); 
-            
+
       }
 
       return Right('Order registered successfully');
