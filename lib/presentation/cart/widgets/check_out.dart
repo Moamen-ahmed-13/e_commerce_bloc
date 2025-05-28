@@ -8,13 +8,15 @@ import 'package:flutter/material.dart';
 
 class Checkout extends StatelessWidget {
   final List<ProductOrderedEntity> products;
-  const Checkout({required this.products, super.key});
+  Checkout({required this.products, super.key, this.onPress, this.content});
+  VoidCallback? onPress;
+  Widget? content;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
-      height: MediaQuery.of(context).size.height / 3.5,
+      height: MediaQuery.of(context).size.height / 3,
       color: AppColors.background,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -73,11 +75,15 @@ class Checkout extends StatelessWidget {
               )
             ],
           ),
+          SizedBox(height: 40),
           BasicAppButton(
-            onPressed: () {
-              AppNavigator.push(context, CheckOutPage());
-            },
-            title: 'Checkout',
+            onPressed: onPress ??
+                () {
+                  AppNavigator.push(context, CheckOutPage(products: products));
+                },
+            content: content ??
+                Text('CheckOut',
+                    style: const TextStyle(color: Colors.white, fontSize: 16)),
           )
         ],
       ),

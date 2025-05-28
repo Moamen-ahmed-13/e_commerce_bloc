@@ -18,7 +18,9 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const BasicAppbar(),
+      appBar: const BasicAppbar(
+        title: Text('Cart'),
+      ),
       body: BlocProvider(
         create: (context) => CartCubit()..displayCartProducts(),
         child: BlocBuilder<CartCubit, CartState>(
@@ -30,15 +32,15 @@ class CartPage extends StatelessWidget {
               return state.products.isEmpty
                   ? _notFound(context)
                   : Stack(
-                children: [
-                  _products(state.products),
-                   Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Checkout(products: state.products,)
-                  )
-                ],
-              );
-
+                      children: [
+                        _products(state.products),
+                        Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Checkout(
+                              products: state.products,
+                            ))
+                      ],
+                    );
             }
             if (state is CartError) {
               return Center(child: Text(state.message));
@@ -76,17 +78,18 @@ class CartPage extends StatelessWidget {
       ),
     );
   }
+
   Widget _products(List<ProductOrderedEntity> products) {
     return ListView.separated(
-      padding: const EdgeInsets.all(16),
-      itemBuilder: (context, index) {
-        return ProductOrderedCard(
-          productOrderedEntity: products[index] ,
-        );
-      },
-      separatorBuilder: (context, index) => const SizedBox(height: 10,),
-      itemCount: products.length
-    );
+        padding: const EdgeInsets.all(16),
+        itemBuilder: (context, index) {
+          return ProductOrderedCard(
+            productOrderedEntity: products[index],
+          );
+        },
+        separatorBuilder: (context, index) => const SizedBox(
+              height: 10,
+            ),
+        itemCount: products.length);
   }
-
 }

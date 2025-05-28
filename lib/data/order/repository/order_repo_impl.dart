@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:e_commerce_bloc/data/order/models/add_to_cart.dart';
+import 'package:e_commerce_bloc/data/order/models/order_registeration_req.dart';
 import 'package:e_commerce_bloc/data/order/models/product_ordered.dart';
 import 'package:e_commerce_bloc/data/order/source/order_firebase_services.dart';
 import 'package:e_commerce_bloc/domain/order/repository/order_repo.dart';
@@ -32,6 +33,15 @@ class OrderRepositoryImpl extends OrderRepository {
       return Right(message);
     });
   }
+  @override
+  Future<Either> orderRegistration(OrderRegistrationReq orderRegistrationReq)async {
+    var returnedData = await sl<OrderFirebaseServices>().orderRegistration(orderRegistrationReq);
+    return returnedData.fold((error) {
+      return Left(error);
+    }, (message) {
+      return Right(message);
+    });
+  }
 
   @override
   Future<Either> getOrders() {
@@ -39,9 +49,5 @@ class OrderRepositoryImpl extends OrderRepository {
     throw UnimplementedError();
   }
 
-  @override
-  Future<Either> orderRegistration() {
-    // TODO: implement orderRegistration
-    throw UnimplementedError();
-  }
+
 }
