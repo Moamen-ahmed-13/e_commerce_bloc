@@ -7,6 +7,7 @@ import 'package:e_commerce_bloc/data/order/models/order_registeration_req.dart';
 import 'package:e_commerce_bloc/domain/order/entity/product_ordered.dart';
 import 'package:e_commerce_bloc/domain/order/usecases/order_registration.dart';
 import 'package:e_commerce_bloc/presentation/cart/widgets/check_out.dart';
+import 'package:e_commerce_bloc/presentation/checkOut/page/order_placed.dart';
 import 'package:e_commerce_bloc/presentation/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,6 +33,7 @@ class CheckOutPage extends StatelessWidget {
                   behavior: SnackBarBehavior.floating,
                 );
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                AppNavigator.push(context, const OrderPlacedPage());
               }
             },
             child: Builder(builder: (context) {
