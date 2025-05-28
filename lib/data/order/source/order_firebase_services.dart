@@ -82,7 +82,8 @@ class OrderFirebaseServicesImpl implements OrderFirebaseServices {
             .doc(user.uid)
             .collection('Cart')
             .doc(item.id)
-            .delete();
+            .delete(); 
+            
       }
 
       return Right('Order registered successfully');
