@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:e_commerce_bloc/data/products/models/product_model.dart';
 import 'package:e_commerce_bloc/data/products/source/product_firebase_service.dart';
 import 'package:e_commerce_bloc/domain/products/entity/product_entity.dart';
 import 'package:e_commerce_bloc/domain/products/repository/product_repo.dart';
@@ -13,39 +14,42 @@ class ProductRepositoryImpl extends ProductRepository {
       (data) => Right(data.map((e) => e.toEntity()).toList()),
     );
   }
-  
+
   @override
-  Future<Either<String, List<ProductEntity>>> getProductsByTitle(String title) async{
+  Future<Either<String, List<ProductEntity>>> getProductsByTitle(
+      String title) async {
     var result = await sl<ProductFirebaseService>().getProductsByTitle(title);
     return result.fold(
       (error) => Left(error),
       (data) => Right(data.map((e) => e.toEntity()).toList()),
     );
   }
-  
+
   @override
-  Future<Either> addOrRemoveFromFavorite(ProductEntity product)async {
-       var result = await sl<ProductFirebaseService>().addOrRemoveFromFavorite(product);
+  Future<Either<String, dynamic>> addOrRemoveFromFavorite(
+      ProductEntity product) async {
+    var result =
+        await sl<ProductFirebaseService>().addOrRemoveFromFavorite(product);
     return result.fold(
       (error) => Left(error),
       (data) => Right(data),
     );
+  }
 
-  }
-  
   @override
-  Future<bool> isFavorite(String productId) async{
-     return await sl<ProductFirebaseService>().isFavorite(productId);
-     
+  Future<bool> isFavorite(String productId) async {
+    return await sl<ProductFirebaseService>().isFavorite(productId);
   }
-  
+
   @override
-  Future<Either> getFavoriteProducts() async{
-       var result = await sl<ProductFirebaseService>().getFavoriteProducts();
+  Future<Either> getFavoriteProducts() async {
+    var result = await sl<ProductFirebaseService>().getFavoriteProducts();
+
     return result.fold(
       (error) => Left(error),
-      (data) => Right(data.map((e) => e.toEntity()).toList()),
+      (data) => Right(List.from(data)
+          .map((e) => ProductModel.fromMap(e).toEntity())
+          .toList()),
     );
-
   }
 }

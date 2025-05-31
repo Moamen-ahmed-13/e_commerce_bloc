@@ -8,5 +8,7 @@ abstract class OrderRepository {
   Future<Either> removeCartProducts(String id);
   Future<Either> orderRegistration(OrderRegistrationReq orderRegistrationReq);
   Future<Either> getOrders();
+  Future<Either> favOrders();
+
   
 }

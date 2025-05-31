@@ -9,6 +9,9 @@ abstract class OrderFirebaseServices {
   Future<Either> getCartProducts();
   Future<Either> removeCartProducts(String id);
   Future<Either> orderRegistration(OrderRegistrationReq orderRegistrationReq);
+  Future<Either> getOrders();
+  Future<Either>favOrders();
+
   
 }
 
@@ -90,6 +93,36 @@ class OrderFirebaseServicesImpl implements OrderFirebaseServices {
       return Right('Order registered successfully');
     } catch (e) {
       return const Left('Please try again');
+    }
+  }
+  
+  @override
+  Future<Either> getOrders()async{
+    try {
+      var user = FirebaseAuth.instance.currentUser;
+      var returnedData = await FirebaseFirestore.instance.collection(
+        "Users"
+      ).doc(user!.uid).collection('Orders').get();
+      return Right(returnedData.docs.map((e) => e.data()).toList());
+    } catch (e) {
+      return const Left(
+        'Please try again'
+      );
+    }
+  }
+  
+  @override
+  Future<Either> favOrders() async{
+    try {
+      var user = FirebaseAuth.instance.currentUser;
+      var returnedData = await FirebaseFirestore.instance.collection(
+        "Users"
+      ).doc(user!.uid).collection('Favorites').get();
+      return Right(returnedData.docs.map((e) => e.data()).toList());
+    } catch (e) {
+      return const Left(
+        'Please try again'
+      );
     }
   }
 }

@@ -45,3 +45,21 @@ class ColorModel {
     );
   }
 }
+
+extension ProductColorXModel on ColorModel {
+  ColorEntity toEntity() {
+    return ColorEntity(
+      title: title,
+      hexCode: hexCode,
+    );
+  }
+}
+
+extension ProductColorXEntity on ColorEntity {
+  ColorModel fromEntity() {
+    return ColorModel(
+      title: title,
+      hexCode: hexCode,
+    );
+  }
+}

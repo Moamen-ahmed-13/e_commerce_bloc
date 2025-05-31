@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:e_commerce_bloc/data/order/models/add_to_cart.dart';
+import 'package:e_commerce_bloc/data/order/models/order_model.dart';
 import 'package:e_commerce_bloc/data/order/models/order_registeration_req.dart';
 import 'package:e_commerce_bloc/data/order/models/product_ordered.dart';
 import 'package:e_commerce_bloc/data/order/source/order_firebase_services.dart';
@@ -33,9 +34,12 @@ class OrderRepositoryImpl extends OrderRepository {
       return Right(message);
     });
   }
+
   @override
-  Future<Either> orderRegistration(OrderRegistrationReq orderRegistrationReq)async {
-    var returnedData = await sl<OrderFirebaseServices>().orderRegistration(orderRegistrationReq);
+  Future<Either> orderRegistration(
+      OrderRegistrationReq orderRegistrationReq) async {
+    var returnedData = await sl<OrderFirebaseServices>()
+        .orderRegistration(orderRegistrationReq);
     return returnedData.fold((error) {
       return Left(error);
     }, (message) {
@@ -44,10 +48,32 @@ class OrderRepositoryImpl extends OrderRepository {
   }
 
   @override
-  Future<Either> getOrders() {
-    // TODO: implement getOrders
-    throw UnimplementedError();
+  Future<Either> getOrders() async {
+    var returnedData = await sl<OrderFirebaseServices>().getOrders();
+    return returnedData.fold((error) {
+      return Left(error);
+    }, (message) {
+      return Right(
+        List.from(message)
+            .map((e) => OrderModel.fromMap(e).toEntity())
+            .toList(),
+      );
+    });
   }
+  
+  @override
+  Future<Either> favOrders() async{
+    var returnedData = await sl<OrderFirebaseServices>().favOrders();
+    return returnedData.fold((error) {
+      return Left(error);
+    }, (message) {
+      return Right(
+        List.from(message)
+            .map((e) => OrderModel.fromMap(e).toEntity())
+            .toList(),
+      );
+    });
 
-
+   
+  }
 }

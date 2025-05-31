@@ -29,41 +29,38 @@ class ProductModel {
     required this.image,
   });
 
+  factory ProductModel.fromMap(Map<String, dynamic> map) {
+    List<ColorModel> colorsList = [];
 
-factory ProductModel.fromMap(Map<String, dynamic> map) {
-  List<ColorModel> colorsList = [];
+    // Try to safely parse 'colors', but if wrong just skip
+    if (map['colors'] is List) {
+      colorsList = (map['colors'] as List)
+          .whereType<Map<String, dynamic>>() // only keep maps
+          .map((x) => ColorModel.fromMap(x))
+          .toList();
+    }
+    // ⚡ If colors are empty, insert a default Black color
+    if (colorsList.isEmpty) {
+      colorsList.add(ColorModel(
+        title: 'Default Black',
+        hexCode: '000000',
+      ));
+    }
 
-  // Try to safely parse 'colors', but if wrong just skip
-  if (map['colors'] is List) {
-    colorsList = (map['colors'] as List)
-        .whereType<Map<String, dynamic>>() // only keep maps
-        .map((x) => ColorModel.fromMap(x))
-        .toList();
+    return ProductModel(
+      categoryId: map['categoryId'] ?? '',
+      colors: colorsList, // <- safe fallback: empty list
+      createdDate: map['createDate'] as Timestamp,
+      price: map['price'] ?? '',
+      discountedPrice: map['discountPrice'] ?? '',
+      gender: int.tryParse(map['gender'].toString()) ?? 0,
+      sizes: map['sizes'] != null ? List<String>.from(map['sizes']) : [],
+      title: map['title'] ?? '',
+      productId: map['productId'] ?? '',
+      salesNumber: map['salesNumber'] ?? '',
+      image: map['image'] ?? '',
+    );
   }
-   // ⚡ If colors are empty, insert a default Black color
-  if (colorsList.isEmpty) {
-    colorsList.add(ColorModel(
-      title: 'Default Black',
-      hexCode: '000000',
-    ));
-  }
-
-  return ProductModel(
-    categoryId: map['categoryId'] ?? '',
-    colors: colorsList, // <- safe fallback: empty list
-    createdDate: map['createDate'] as Timestamp,
-    price: map['price'] ?? '',
-    discountedPrice: map['discountPrice'] ?? '',
-    gender: int.tryParse(map['gender'].toString()) ?? 0,
-    sizes: map['sizes'] != null
-        ? List<String>.from(map['sizes'])
-        : [],
-    title: map['title'] ?? '',
-    productId: map['productId'] ?? '',
-    salesNumber: map['salesNumber'] ?? '',
-    image: map['image'] ?? '',
-  );
-}
 
   Map<String, dynamic> toMap() {
     return {
@@ -114,7 +111,40 @@ factory ProductModel.fromMap(Map<String, dynamic> map) {
       image: entity.image,
     );
   }
-  
 }
 
- 
+extension ProductXModel on ProductModel {
+  ProductEntity toEntity() {
+    return ProductEntity(
+      categoryId: categoryId,
+      colors: colors.map((e) => e.toEntity()).toList(),
+      createdDate: createdDate,
+      discountedPrice: discountedPrice,
+      gender: gender,
+      price: price,
+      sizes: sizes,
+      productId: productId,
+      salesNumber: salesNumber,
+      title: title,
+      image: image,
+    );
+  }
+}
+
+extension ProductXEntity on ProductEntity {
+  ProductModel fromEntity() {
+    return ProductModel(
+      categoryId: categoryId,
+      colors: colors.map((e) => e.fromEntity()).toList()  as List<ColorModel>,
+      createdDate: createdDate,
+      discountedPrice: discountedPrice,
+      gender: gender,
+      price: price,
+      sizes: sizes,
+      productId: productId,
+      salesNumber: salesNumber,
+      title: title,
+      image: image,
+    );
+  }
+}

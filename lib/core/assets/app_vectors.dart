@@ -9,4 +9,5 @@ class AppVectors {
   static const search = '${basePath}search$format';
   static const notFound = '${basePath}not_found$format';
   static const cartBag = '${basePath}cart_bag$format';
+  static const noOrders = '${basePath}no_orders.png';
 }
